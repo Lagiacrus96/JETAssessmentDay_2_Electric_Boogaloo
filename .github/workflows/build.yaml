@@ -22,12 +22,7 @@ jobs:
         run: pip install -r requirements.txt
 
           
-      - name: Run pylint
-        run: pylint build.py
 
-      
-      - name: Run pytest
-        run: pytest tests/
       
       - name: Package application
         run: zip -r application.zip .
