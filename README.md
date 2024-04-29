@@ -1,4 +1,4 @@
-# Project Name
+# Setting up Continuous Integration Pipeline
 
 This repository contains a Python script that automates the deployment of an HTML file to cloud storage solutions. The project is set up with a CI/CD pipeline using GitHub Actions that tests, lints, and deploys an `index.html` file to both Azure Blob Storage and AWS S3.
 
