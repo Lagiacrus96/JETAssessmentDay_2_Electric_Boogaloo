@@ -10,10 +10,10 @@ SOURCE_FILE_PATH = 'index.html'
 DEST_DIRECTORY = 'dist'
 
 # Make sure the destination directory exists
-os.makedirs(dest_directory, exist_ok=True)
+os.makedirs(DEST_DIRECTORY, exist_ok=True)
 
 # Choose destination file path
-dest_file_path = os.path.join(dest_directory, 'index.html')
+dest_file_path = os.path.join(DEST_DIRECTORY, 'index.html')
 
 # Copy the file
 shutil.copyfile(SOURCE_FILE_PATH, dest_file_path)
