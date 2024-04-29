@@ -46,4 +46,9 @@ jobs:
 
       - name: Upload HTML to storage
         run: |
-          az storage blob upload --account-name githubmeinema --container-name \$web --name index.html --file index.html --auth-mode key
+          az storage blob upload \
+            --account-name githubmeinema \
+            --container-name \$web \
+            --name index.html \
+            --file index.html \
+            --auth-mode login
