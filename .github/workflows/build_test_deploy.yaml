@@ -44,7 +44,7 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Upload HTML to storage
+      - name: Upload html to Azure storage
         run: |
           az storage blob upload --overwrite\
             --account-name githubmeinema \
@@ -52,3 +52,13 @@ jobs:
             --name index.html \
             --file index.html \
             --auth-mode login
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_CREDENTIALS.AccessKey }}
+          aws-secret-access-key: ${{ secrets.AWS_CREDENTIALS.SecretAccessKey }}
+          aws-region: eu-central-1
+
+      - name: Upload html to AWS storage
+        run: aws s3 cp index.html s3://githubmeinema/ --acl public-read
+        
