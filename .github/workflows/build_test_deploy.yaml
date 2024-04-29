@@ -34,3 +34,16 @@ jobs:
   deploy:
     needs: build-and-test
     runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Azure CLI
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Upload HTML to storage
+        run: |
+          az storage blob upload --account-name githubmeinema --container-name \$web --name index.html --file index.html --auth-mode key
