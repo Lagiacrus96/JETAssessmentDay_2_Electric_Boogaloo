@@ -1,21 +1,33 @@
 import os
-import unittest
-from build import copy_file
+import shutil
+import pytest
 
-class TestBuildScript(unittest.TestCase):
+def copy_file(source, destination):
+    os.makedirs(destination, exist_ok=True)
+    dest_file_path = os.path.join(destination, os.path.basename(source))
+    shutil.copyfile(source, dest_file_path)
+    return dest_file_path
 
-    def test_copy_file(self):
-        # Test copying a file
-        source_file = 'index.html'
-        dest_directory = 'dist'
-        copy_file(source_file, dest_directory)
-        
-        # Assert that the file was copied successfully
-        dest_file = os.path.join(dest_directory, source_file)
-        self.assertTrue(os.path.exists(dest_file), f"{source_file} was not copied to {dest_directory}")
+def test_copy_file(tmpdir):
+    # Create a temporary source file
+    source_file = tmpdir.join('source.html')
+    source_file.write('<h1>Hello, World!</h1>')
 
-        # Clean up: remove the copied file
-        os.remove(dest_file)
+    # Define source and destination
+    source = str(source_file)
+    destination = str(tmpdir.mkdir('dest'))
 
-if __name__ == '__main__':
-    unittest.main()
+    # Copy the file
+    copied_file = copy_file(source, destination)
+
+    # Check that the copied file exists
+    assert os.path.exists(copied_file), "The file should exist in the destination directory."
+
+    # Check that the contents are the same
+    with open(copied_file, 'r') as file:
+        contents = file.read()
+    assert contents == '<h1>Hello, World!</h1>', "The contents of the destination file should match the source file."
+
+# Run the test
+if __name__ == "__main__":
+    pytest.main([__file__])
