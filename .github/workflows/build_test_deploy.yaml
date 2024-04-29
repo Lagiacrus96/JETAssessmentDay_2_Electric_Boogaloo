@@ -46,7 +46,7 @@ jobs:
 
       - name: Upload HTML to storage
         run: |
-          az storage blob upload \
+          az storage blob upload --overwrite\
             --account-name githubmeinema \
             --container-name \$web \
             --name index.html \
