@@ -1,54 +1,77 @@
-# My Web Application
+# Project Name
 
-Welcome to my web application repository! This project is a simple web application that displays a "Hello, World!" message.
+This repository contains a Python script that automates the deployment of an HTML file to cloud storage solutions. The project is set up with a CI/CD pipeline using GitHub Actions that tests, lints, and deploys an `index.html` file to both Azure Blob Storage and AWS S3.
 
 ## Overview
 
-This web application project aims to demonstrate basic web development concepts and serve as a starting point for building more complex applications.
+The main script, `build.py`, performs the following actions:
 
-## Getting Started
+- Copies an `index.html` file from the source directory to a destination directory.
+- Ensures that the destination directory exists before copying.
+- Provides a success message upon successful execution.
 
-To get a local copy of the project up and running, follow these steps:
+The project includes a GitHub Actions workflow that automates the following tasks upon each push to the `main` branch:
 
-### Prerequisites
+- Install dependencies.
+- Run unit tests to ensure functionality.
+- Lint the code to maintain quality.
+- Deploy the `index.html` to both Azure and AWS.
 
-- Python 3.8
-- Git
+## Prerequisites
 
-### Installation
+Before you begin, ensure you have the following:
+- Python 3.8 or higher installed.
+- An AWS account with an S3 bucket configured.
+- An Azure account with Blob Storage configured.
 
-1. Clone the repository to your local machine:
+## Setup and Installation
+
+1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/your-repository.git
+   git clone https://github.com/Lagiacrus96/JETAssessmentDay_2_Electric_Boogaloo.git
+   cd JETAssessmentDay_2_Electric_Boogaloo
    ```
 
-2. Navigate to the project directory:
-   ```bash
-   cd your-repository
-   ```
-
-3. Install project dependencies:
+2. Install required Python packages:
    ```bash
    pip install -r requirements.txt
    ```
 
-### Usage
+## Configuration
 
-To run the web application locally, execute the following command:
+### GitHub Secrets
+
+Set up the following secrets in your GitHub repository to use the CI/CD pipeline:
+
+- `AZURE_CREDENTIALS`: Your Azure credentials in a JSON format.
+- `AWS_ACCESS_KEY_ID`: Your AWS access key.
+- `AWS_SECRET_ACCESS_KEY`: Your AWS secret access key.
+
+### Local Environment Variables
+
+Ensure your local environment is set up with the same credentials for testing locally.
+
+## Usage
+
+To run the script manually on your local machine:
+
 ```bash
-python app.py
+python build.py
 ```
 
-Open a web browser and navigate to `http://localhost:5000` to view the application.
+This will copy the `index.html` to the specified destination and print a success message.
 
-## CI/CD Pipeline
+## GitHub Actions Workflow
 
-This project includes a GitHub Actions CI pipeline for automated testing and deployment. Check out the `build.yml` file for pipeline configuration details.
+The CI/CD pipeline is defined in `.github/workflows/main.yml` and includes the following jobs:
 
-## Feedback and Contributions
+- **build-and-test**: Installs dependencies, runs tests, and lints the code.
+- **deploy**: Deploys `index.html` to Azure and AWS.
 
-Feedback and contributions are welcome! If you encounter any issues or have suggestions for improvement, please open an issue or submit a pull request.
+## Contributing
+
+Feel free to fork this repository and propose changes via pull requests. For major changes, please open an issue first to discuss what you would like to change.
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the MIT License - see the LICENSE file for details.
