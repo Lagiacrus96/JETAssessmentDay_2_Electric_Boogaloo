@@ -18,11 +18,11 @@ def copy_file(source_path, destination_dir, file_name):
     print('Success :)!')
 
 def main():
-    SOURCE_FILE_PATH = 'index.html'
-    DEST_DIRECTORY = 'dist'
-    FILE_NAME = 'index.html'
+    source_file_path = 'index.html'
+    dest_directory = 'dist'
+    file_name = 'index.html'
 
-    copy_file(SOURCE_FILE_PATH, DEST_DIRECTORY, FILE_NAME)
+    copy_file(source_file_path, dest_directory, file_name)
 
 if __name__ == "__main__":
     main()
