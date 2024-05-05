@@ -3,20 +3,26 @@
 import os
 import shutil
 
-# Choose source file path
-SOURCE_FILE_PATH = 'index.html'
+def copy_file(source_path, destination_dir, file_name):
+    """Copies a file from source_path to destination_dir."""
+    # Make sure the destination directory exists
+    os.makedirs(destination_dir, exist_ok=True)
+    
+    # Full path for the destination file
+    dest_file_path = os.path.join(destination_dir, file_name)
+    
+    # Copy the file
+    shutil.copyfile(source_path, dest_file_path)
+    
+    # Success
+    print('Success :)!')
 
-# Choose destination directory path
-DEST_DIRECTORY = 'dist'
+def main():
+    SOURCE_FILE_PATH = 'index.html'
+    DEST_DIRECTORY = 'dist'
+    FILE_NAME = 'index.html'
 
-# Make sure the destination directory exists
-os.makedirs(DEST_DIRECTORY, exist_ok=True)
+    copy_file(SOURCE_FILE_PATH, DEST_DIRECTORY, FILE_NAME)
 
-# Choose destination file path
-dest_file_path = os.path.join(DEST_DIRECTORY, 'index.html')
-
-# Copy the file
-shutil.copyfile(SOURCE_FILE_PATH, dest_file_path)
-
-# Success
-print('Success :)!')
+if __name__ == "__main__":
+    main()
