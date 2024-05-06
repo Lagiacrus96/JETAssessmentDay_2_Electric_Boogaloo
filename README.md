@@ -71,7 +71,3 @@ The CI/CD pipeline is defined in `.github/workflows/main.yml` and includes the f
 ## Contributing
 
 Feel free to fork this repository and propose changes via pull requests. For major changes, please open an issue first to discuss what you would like to change.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
