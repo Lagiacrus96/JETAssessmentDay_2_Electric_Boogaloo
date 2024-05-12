@@ -3,7 +3,9 @@ name: Build, Test and Deploy
 on:
   push:
     branches:
-      - main
+      - Terraform
+    paths:
+      - 'aws/**'
 
 jobs:
   build-and-test:
@@ -59,19 +61,6 @@ jobs:
       - name: Run build.py
         run: python build.py
 
-      - name: Setup Azure CLI
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      - name: Upload html to Azure storage
-        run: |
-          az storage blob upload --overwrite\
-            --account-name githubmeinema \
-            --container-name \$web \
-            --name index.html \
-            --file dist/index.html \
-            --auth-mode login
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
