@@ -1,9 +1,11 @@
-name: Build, Test and Deploy
+name: Build, Test, and Deploy for Azure
 
 on:
   push:
     branches:
-      - main
+      - Terraform
+    paths:
+      - 'azure/**'
 
 jobs:
   build-and-test:
@@ -59,6 +61,22 @@ jobs:
       - name: Run build.py
         run: python build.py
 
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform plan and apply
+        run: |
+          terraform plan
+          terraform apply -auto-approve
+        env:
+          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}          
+
       - name: Setup Azure CLI
         uses: azure/login@v1
         with:
@@ -67,18 +85,8 @@ jobs:
       - name: Upload html to Azure storage
         run: |
           az storage blob upload --overwrite\
-            --account-name githubmeinema \
+            --account-name jetwebsitestorage \
             --container-name \$web \
             --name index.html \
             --file dist/index.html \
             --auth-mode login
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-central-1
-
-      - name: Upload html to AWS storage
-        run: aws s3 cp dist/index.html s3://githubmeinema/ --acl public-read
-        
