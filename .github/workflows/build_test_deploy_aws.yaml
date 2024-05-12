@@ -61,6 +61,21 @@ jobs:
       - name: Run build.py
         run: python build.py
 
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Terraform init
+        run: terraform init
+
+      - name: Terraform plan
+        run: terraform plan
+
+      - name: Terraform apply
+        run: terraform apply -auto-approve
+        env:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
