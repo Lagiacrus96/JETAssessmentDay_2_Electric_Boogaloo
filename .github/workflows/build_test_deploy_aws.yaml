@@ -1,4 +1,4 @@
-name: Build, Test and Deploy for AWS
+wname: Build, Test and Deploy for AWS
 
 on:
   push:
@@ -69,10 +69,14 @@ jobs:
           terraform init
 
       - name: Terraform plan
-        run: terraform plan
+        run: |
+          cd aws
+          terraform plan
 
       - name: Terraform apply
-        run: terraform apply -auto-approve
+        run: |
+          cd aws
+          terraform apply -auto-approve
         env:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -85,5 +89,5 @@ jobs:
           aws-region: eu-central-1
 
       - name: Upload html to AWS storage
-        run: aws s3 cp dist/index.html s3://githubmeinema/ --acl public-read
+        run: aws s3 cp dist/index.html s3://jet-website-bucket/ --acl public-read
         
