@@ -4,12 +4,11 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'aws/**'
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    
 
     strategy:
       matrix:
@@ -65,7 +64,9 @@ jobs:
         uses: hashicorp/setup-terraform@v1
 
       - name: Terraform init
-        run: terraform init
+        run: |
+          cd aws
+          terraform init
 
       - name: Terraform plan
         run: terraform plan
