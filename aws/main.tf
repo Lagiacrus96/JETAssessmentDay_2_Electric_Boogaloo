@@ -15,3 +15,18 @@ resource "aws_s3_bucket_website_configuration" "config" {
         key = "404.html"
     }
 }
+
+resource "aws_s3_bucket_policy" "allow_get" {
+  bucket = aws_s3_bucket.jet_website_bucket.id
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action    = ["s3:GetObject"]
+        Effect    = "Allow"
+        Resource  = "${aws_s3_bucket.jet_website_bucket.arn}/*"
+        Principal = "*"
+      },
+    ]
+  })
+}
