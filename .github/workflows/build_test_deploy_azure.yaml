@@ -61,19 +61,27 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
-  
-      - name: Terraform plan and apply
+
+      - name: Terraform Init
         run: |
           cd azure
           terraform init
+      
+      - name: Terraform Plan
+        run: |
+          cd azure
           terraform plan
+      
+      - name: Terraform Apply
+        run: |
+          cd azure
           terraform apply -auto-approve
         env:
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}          
-
+          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+        
       - name: Setup Azure CLI
         uses: azure/login@v1
         with:
