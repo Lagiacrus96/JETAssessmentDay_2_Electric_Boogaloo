@@ -90,5 +90,5 @@ jobs:
           
 
       - name: Upload html to AWS storage
-        run: aws s3 cp dist/index.html s3://jet-website-bucket/ --acl public-read
+        run: aws s3 cp dist/index.html s3://jet-website-bucket/
         
