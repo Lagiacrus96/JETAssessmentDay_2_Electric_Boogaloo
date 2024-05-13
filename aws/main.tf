@@ -16,6 +16,13 @@ resource "aws_s3_bucket_website_configuration" "config" {
     }
 }
 
+resource "aws_s3_object" "index_html" {
+  bucket       = aws_s3_bucket.jet_website_bucket.bucket
+  key          = "index.html"
+  content      = file("../dist/index.html")
+  content_type = "text/html"
+}
+
 resource "aws_s3_bucket_policy" "allow_public_read" {
   bucket = aws_s3_bucket.jet_website_bucket.id
 
