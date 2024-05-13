@@ -44,7 +44,6 @@ jobs:
       - run: |
           cd aws
           terraform init
-          terraform destroy -auto-approve
           terraform plan
           terraform apply -auto-approve
       - run: aws s3 cp dist/index.html s3://jet-website-bucket/
