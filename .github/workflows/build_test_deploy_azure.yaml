@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'azure/**'
 
 jobs:
   build-and-test:
@@ -63,12 +61,11 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
-
-      - name: Terraform Init
-        run: terraform init
-
+  
       - name: Terraform plan and apply
         run: |
+          cd azure
+          terraform init
           terraform plan
           terraform apply -auto-approve
         env:
