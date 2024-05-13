@@ -33,7 +33,6 @@ jobs:
       - name: Run pylint
         run: pylint build.py
 
-        
   deploy:
     needs: build-and-test
     runs-on: ubuntu-latest
@@ -63,6 +62,11 @@ jobs:
         
       - name: Run build.py
         run: python build.py
+        
+      - name: Setup Azure CLI
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
@@ -76,22 +80,12 @@ jobs:
         run: |
           cd azure
           terraform plan
-        env:
-          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-
       
       - name: Terraform Apply
         run: |
           cd azure
           terraform apply -auto-approve
         
-      - name: Setup Azure CLI
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Upload html to Azure storage
         run: |
