@@ -1,73 +1,79 @@
-# Setting up Continuous Integration Pipeline
+Project Repository: Cloud Deployment Automation
+Overview
+This repository includes essential tools and configurations for automating the deployment of a static "Hello, World!" web page to both AWS and Azure cloud platforms. It features Python scripts for file management, automated testing, and Terraform configurations tailored for each cloud provider.
 
-This repository contains a Python script that automates the deployment of an HTML file to cloud storage solutions. The project is set up with a CI/CD pipeline using GitHub Actions that tests, lints, and deploys an `index.html` file to both Azure Blob Storage and AWS S3.
+Repository Structure
+Python Scripts: Automate file copying and provide utility functions.
+HTML Files: Contains a simple "Hello, World!" page used for deployment.
+Terraform Configurations:
+aws/: Configurations for AWS deployments using S3 and other resources.
+azure/: Configurations for Azure deployments using resource groups and storage accounts.
+GitHub Actions Workflows:
+AWS: Automates build, test, and deployment processes to AWS.
+Azure: Handles build, test, and deployment to Azure, with ongoing adjustments for authentication issues.
+Getting Started
+Prerequisites
+Python 3.8+
+Terraform
+AWS CLI (configured with user credentials)
+Azure CLI (configured with user credentials)
+Installation
+Clone the repository to your local system:
 
-## Overview
+bash
+Code kopiëren
+git clone https://github.com/your-username/your-repository.git
+Navigate to the repository directory:
 
-The main script, `build.py`, performs the following actions:
+bash
+Code kopiëren
+cd your-repository
+Install required Python packages:
 
-- Copies an `index.html` file from the source directory to a destination directory.
-- Ensures that the destination directory exists before copying.
-- Provides a success message upon successful execution.
+bash
+Code kopiëren
+pip install -r requirements.txt
+Usage
+Running the Build Script
+To copy index.html to the designated distribution directory:
 
-The project includes a GitHub Actions workflow that automates the following tasks upon each push to the `main` branch:
-
-- Install dependencies.
-- Run unit tests to ensure functionality.
-- Lint the code to maintain quality.
-- Deploy the `index.html` to both Azure and AWS.
-
-## Prerequisites
-
-Before you begin, ensure you have the following:
-- Python 3.8 or higher installed.
-- An AWS account with an S3 bucket configured.
-- An Azure account with Blob Storage configured.
-
-## Setup and Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/Lagiacrus96/JETAssessmentDay_2_Electric_Boogaloo.git
-   cd JETAssessmentDay_2_Electric_Boogaloo
-   ```
-
-2. Install required Python packages:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-## Configuration
-
-### GitHub Secrets
-
-Set up the following secrets in your GitHub repository to use the CI/CD pipeline:
-
-- `AZURE_CREDENTIALS`: Your Azure credentials in a JSON format.
-- `AWS_ACCESS_KEY_ID`: Your AWS access key.
-- `AWS_SECRET_ACCESS_KEY`: Your AWS secret access key.
-
-### Local Environment Variables
-
-Ensure your local environment is set up with the same credentials for testing locally.
-
-## Usage
-
-To run the script manually on your local machine:
-
-```bash
+bash
+Code kopiëren
 python build.py
-```
+Deploying to Cloud Services
+Initialize and apply Terraform configurations within the respective cloud directories:
 
-This will copy the `index.html` to the specified destination and print a success message.
+bash
+Code kopiëren
+# For AWS
+cd aws
+terraform init
+terraform apply
 
-## GitHub Actions Workflow
+# For Azure
+cd azure
+terraform init
+terraform apply
+Testing
+Ensure the functionality of the scripts by running:
 
-The CI/CD pipeline is defined in `.github/workflows/main.yml` and includes the following jobs:
+bash
+Code kopiëren
+pytest
+GitHub Actions Workflows
+AWS Workflow
+This workflow automates the process of testing, building, and deploying to AWS. It handles configuration of AWS credentials, executes Terraform scripts, and uploads the resulting index.html to an S3 bucket.
 
-- **build-and-test**: Installs dependencies, runs tests, and lints the code.
-- **deploy**: Deploys `index.html` to Azure and AWS.
+Azure Workflow
+Handles testing and building, and manages deployment to Azure. Due to ongoing authentication adjustments, check the latest runs for updates on authentication configurations and deployment success.
 
-## Contributing
+Contributing
+Contributions are welcome! Please adhere to the following workflow:
 
-Feel free to fork this repository and propose changes via pull requests. For major changes, please open an issue first to discuss what you would like to change.
+Fork the repository.
+Create your feature branch (git checkout -b feature/AmazingFeature).
+Commit your changes (git commit -am 'Add some AmazingFeature').
+Push to the branch (git push origin feature/AmazingFeature).
+Create a new Pull Request.
+License
+This project is licensed under the MIT License - see the LICENSE.md file for details.
