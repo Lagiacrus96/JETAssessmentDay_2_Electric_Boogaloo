@@ -1,7 +1,3 @@
-Great, you've provided a comprehensive overview of the contents and configurations of your GitHub repository, including the scripts, HTML file, Terraform configurations, and GitHub Actions workflows for both AWS and Azure deployments. Let's compile the README.md for your repository now.
-
----
-
 # Project Repository: Cloud Deployment Automation
 
 ## Overview
